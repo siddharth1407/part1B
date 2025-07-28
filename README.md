@@ -3,31 +3,6 @@
 
 ## Project Title: [Your Project Name Here, e.g., Smart PDF Outline & Insights]
 
-### Round 1A: Understand Your Document
-This part of the solution extracts a structured outline (Title, H1, H2, H3 headings with page numbers) from PDF documents.
-
-Approach for Round 1A:
-[cite_start]Our approach for heading detection combines several heuristics to ensure robustness, as simply relying on font sizes can be insufficient.
-1.  PDF Parsing: We use pdfminer.six to parse PDF files. This library allows us to extract text content along with detailed layout information, including font size, bold status, and precise (x, y) coordinates for each text block. This is crucial for understanding the visual hierarchy of the document.
-2.  Feature Extraction: For each text block, we extract:
-    * font_size: The size of the font used.
-    * is_bold: Whether the text is rendered in bold.
-    * y_position: The vertical position on the page, helping to determine vertical spacing between blocks.
-    * x_position: The horizontal position, for alignment checks.
-    * line_height: The height of the text line, useful for calculating vertical gaps.
-3.  Heuristic-Based Heading Classification:
-    * We first analyze the distribution of font sizes across the entire document to identify the most prominent sizes, which are strong candidates for H1, H2, and H3.
-    * Text blocks are identified as potential headings if they are bold AND have one of the inferred heading font sizes.
-    * Further checks include:
-        * Vertical Spacing: Headings typically have larger vertical gaps above them compared to regular body text.
-        * Positional Cues: Headings often appear at the beginning of a page or column, or are distinctly indented/aligned.
-        * Title Detection: The document title is inferred as the largest, most prominent text block appearing near the top of the first page.
-4.  Outline Construction: Once headings are identified and classified (H1, H2, H3), they are structured hierarchically based on their level and appearance order.
-
-Libraries Used (Round 1A):
-* pdfminer.six for PDF parsing and layout analysis.
-* Standard Python libraries for text processing and JSON output.
-
 ### Round 1B: Persona-Driven Document Intelligence
 [cite_start]This part of the solution acts as an intelligent document analyst, extracting and prioritizing relevant sections from a collection of documents based on a specific persona and a given "job-to-be-done." [cite: 109]
 
@@ -60,6 +35,6 @@ Docker Requirements:
 How to Build the Docker Image:
 Navigate to the root directory of this project (where Dockerfile is located) and run:
 ```bash
-docker build --platform linux/amd64 -t mysolutionname:somerandomidentifier . [cite: 64, 65]
+docker build --platform linux/amd64 -t mysolutionname:somerandomidentifier .
 
-docker run --rm -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output --network none mysolutionname:somerandomidentifier [cite: 67]
+docker run --rm -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output --network none mysolutionname:somerandomidentifier 
